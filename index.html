@@ -120,6 +120,21 @@ h1 em{
   padding:5px 12px; border-radius:100px;
   background:rgba(216,178,100,.04);
 }
+.words-strip{
+  text-align:center;
+  font-size:10.5px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold);
+  line-height:2;
+  margin:-6px 0 20px;
+}
+.gcard .tech{
+  font-size:8px; letter-spacing:.8px; text-transform:uppercase;
+  color:rgba(179,166,137,.65); margin-top:2px;
+}
+.sec-head .tech-sub{
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--cream-dim); margin-bottom:8px;
+}
 /* grid of 9 */
 .grid9{
   display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
@@ -496,6 +511,8 @@ footer b{color:var(--gold); font-weight:500;}
       <span>✦ Tarjeta de regalo en cada uno</span>
     </div>
 
+    <p class="words-strip">Esencia · Mente · Emoción · Cuerpo · Energía<br>Acción · Para Qué · Vínculos · Imagen</p>
+
     <div class="grid9" id="introGrid"></div>
 
     <div class="name-block">
@@ -520,7 +537,8 @@ footer b{color:var(--gold); font-weight:500;}
     <div class="sec-head">
       <div class="icon-ring" id="secIcon"></div>
       <p class="kicker" id="secKicker">Sistema 1 de 9</p>
-      <h2 id="secName">Identidad</h2>
+      <h2 id="secName">Mi Esencia</h2>
+      <p class="tech-sub" id="secTech"></p>
       <p class="hook" id="secHook"></p>
     </div>
 
@@ -654,7 +672,7 @@ const ICONS = {
 };
 
 const DIMS = [
- {key:'identidad', name:'Identidad', hook:'¿Quién soy… y desde qué identidad estoy viviendo?',
+ {key:'identidad', name:'Mi Esencia', short:'Esencia', tech:'Sistema de Identidad', hook:'¿Quién soy realmente y cuánto de mi vida refleja quién quiero ser?',
   qs:['Tengo claro quién soy y desde qué identidad estoy viviendo.',
       'Cuento mi historia personal como aprendizaje, no como condena.',
       'Mis valores guían mis decisiones de cada día.'],
@@ -665,7 +683,7 @@ const DIMS = [
           i:'Pregúntate hoy: ¿desde qué identidad estoy viviendo… la que heredé o la que elijo?'},
    bajo:{f:'Hacerte la pregunta «¿quién soy?» con honestidad ya es el primer acto de transformación.',
          i:'No lo elimines, transfórmalo: reescribe tu historia como aprendizaje, no como condena.'}}},
- {key:'cognitivo', name:'Cognitivo', hook:'¿Cómo interpreto la realidad?',
+ {key:'cognitivo', name:'Mi Mente', short:'Mente', tech:'Sistema Cognitivo', hook:'¿Mis pensamientos y creencias me impulsan o me mantienen atrapado?',
   qs:['Me doy cuenta de cuándo mis pensamientos distorsionan la realidad.',
       'Puedo cuestionar mis creencias y cambiarlas cuando ya no me sirven.',
       'Tomo mis decisiones con claridad mental, no desde la confusión.'],
@@ -676,7 +694,7 @@ const DIMS = [
           i:'Atrapa una creencia que te limita y ponla a prueba: ¿es verdad… o solo es costumbre?'},
    bajo:{f:'Notar que tus pensamientos te pesan ya es el inicio: nadie puede transformar lo que no ve.',
          i:'Escribe hoy un pensamiento recurrente y pregúntale: ¿me acercas o me alejas de la vida que quiero?'}}},
- {key:'emocional', name:'Emocional', hook:'¿Cómo experimento la vida?',
+ {key:'emocional', name:'Mi Mundo Emocional', short:'Emoción', tech:'Sistema Emocional', hook:'¿Comprendo lo que siento y sé relacionarme con mis emociones?',
   qs:['Reconozco mis emociones y puedo nombrarlas sin juzgarme.',
       'Regulo lo que siento sin reprimirlo ni dejar que me desborde.',
       'Me recupero de los golpes emocionales sin quedarme atrapado en ellos.'],
@@ -687,7 +705,7 @@ const DIMS = [
           i:'Elige una emoción que llevas cargando y dale espacio esta semana: nómbrala, escríbele, transfórmala.'},
    bajo:{f:'Sentir mucho no es debilidad: es la materia prima de tu transformación, y tú la tienes de sobra.',
          i:'Empieza por nombrar lo que sientes una vez al día. Lo que se nombra, se puede transformar.'}}},
- {key:'biologico', name:'Biológico', hook:'¿En qué estado funciona mi organismo?',
+ {key:'biologico', name:'Mi Cuerpo', short:'Cuerpo', tech:'Sistema Biológico', hook:'¿Estoy escuchando y cuidando el vehículo que sostiene mi vida?',
   qs:['Duermo lo suficiente como para regenerarme de verdad.',
       'Alimento y muevo mi cuerpo pensando en cómo quiero funcionar.',
       'Escucho las señales de mi cuerpo y las atiendo a tiempo.'],
@@ -698,7 +716,7 @@ const DIMS = [
           i:'Elige un solo hábito —sueño, alimentación o movimiento— y regálaselo a tu cuerpo durante 21 días.'},
    bajo:{f:'Tu cuerpo sigue ahí, fiel, sosteniéndote incluso cuando lo olvidas. Nunca es tarde para volver a él.',
          i:'Empieza pequeño: un vaso más de agua, diez minutos de caminata, media hora más de sueño. Tu biología responde rápido al amor.'}}},
- {key:'energetico', name:'Energético', hook:'¿Cuánta vitalidad y presencia tengo disponible?',
+ {key:'energetico', name:'Mi Energía Vital', short:'Energía', tech:'Sistema Energético', hook:'¿Cómo está mi vitalidad, mi presencia y mi conexión con el momento presente?',
   qs:['Vivo con una vitalidad que me alcanza para lo que quiero vivir.',
       'Puedo estar presente en lo que hago, sin vivir en piloto automático.',
       'Sé volver a mi centro cuando algo me desestabiliza.'],
@@ -709,7 +727,7 @@ const DIMS = [
           i:'Regálate pausas de presencia: tres respiraciones conscientes pueden devolverte a ti en un minuto.'},
    bajo:{f:'Tu cansancio no es un fracaso: es un mensaje honesto… y tú ya empezaste a escucharlo.',
          i:'Detecta hoy tu mayor fuga de energía y ciérrala con un límite amoroso.'}}},
- {key:'conductual', name:'Conductual', hook:'¿Qué hago repetidamente?',
+ {key:'conductual', name:'Mis Acciones', short:'Acción', tech:'Sistema Conductual', hook:'¿Lo que hago cada día me acerca o me aleja de la vida que quiero construir?',
   qs:['Mis hábitos diarios trabajan a favor de la vida que quiero.',
       'Cumplo los compromisos que hago conmigo.',
       'Cuando decido cambiar algo, sostengo la acción en el tiempo.'],
@@ -720,7 +738,7 @@ const DIMS = [
           i:'Ancla un hábito nuevo a uno que ya domines: así se construyen las cadenas de victoria.'},
    bajo:{f:'Toda identidad termina expresándose en acciones… y al hacer este recorrido, tú ya diste la primera.',
          i:'Elige UN microhábito de 2 minutos. La transformación no llega por golpes: llega por gotas.'}}},
- {key:'proposito', name:'Propósito', hook:'¿Para qué vivo?',
+ {key:'proposito', name:'Mi Para Qué', short:'Para Qué', tech:'Sistema de Propósito', hook:'¿Sé hacia dónde voy, qué le da sentido a mi vida y qué quiero aportar?',
   qs:['Siento que mi vida tiene una dirección que me entusiasma.',
       'Lo que hago cada día conecta con algo más grande que yo.',
       'Sé qué quiero aportar al mundo con mi existencia.'],
@@ -731,7 +749,7 @@ const DIMS = [
           i:'Persigue la chispa: haz más de aquello que te hace perder la noción del tiempo.'},
    bajo:{f:'Preguntarte «¿para qué vivo?» ya es la señal de que algo grande quiere nacer en ti.',
          i:'No esperes el propósito perfecto: empieza sirviendo con lo que ya sabes. Ahí suele estar escondido.'}}},
- {key:'relacional', name:'Relacional', hook:'¿Cómo me vinculo conmigo y con los demás?',
+ {key:'relacional', name:'Mis Vínculos', short:'Vínculos', tech:'Sistema Relacional', hook:'¿Cómo me relaciono conmigo mismo, con los demás y con el mundo?',
   qs:['Mis vínculos más cercanos me impulsan a crecer.',
       'Pongo límites sanos, sin culpa, cuando algo me daña.',
       'Me comunico con honestidad, incluso en conversaciones difíciles.'],
@@ -742,7 +760,7 @@ const DIMS = [
           i:'Dale más agua a las relaciones que te hacen florecer… y menos acceso a las que te marchitan.'},
    bajo:{f:'Nadie se transforma aislado, y darte cuenta de lo que te drena ya es tu primer límite.',
          i:'Practica un «no» pequeño esta semana. Cada límite es una puerta que le abres a tu paz.'}}},
- {key:'expresion', name:'Expresión', hook:'¿El mundo puede ver quién soy realmente?',
+ {key:'expresion', name:'Mi Imagen', short:'Imagen', tech:'Sistema Expresivo', hook:'¿Mi imagen, mi comunicación y mi presencia reflejan auténticamente quién soy?',
   qs:['Mi imagen y mi presencia expresan quién soy realmente.',
       'Comunico mis ideas con seguridad, con mi voz y con mi cuerpo.',
       'Hay coherencia entre lo que soy por dentro y lo que proyecto.'],
@@ -802,6 +820,7 @@ function buildIntroGrid(){
       <span class="num">${i+1}</span>
       ${svgIcon(d.key)}
       <div class="nm">${d.name}</div>
+      <div class="tech">${d.tech}</div>
       <div class="hk">${d.hook}</div>
     </div>`).join('');
 }
@@ -827,6 +846,7 @@ function renderQuestion(){
   $('secIcon').innerHTML = svgIcon(d.key);
   $('secKicker').textContent = `Sistema ${state.dim+1} de 9`;
   $('secName').textContent = d.name;
+  $('secTech').textContent = d.tech;
   $('secHook').textContent = d.hook;
   $('qNum').textContent = `Pregunta ${state.q+1} de 3`;
   $('qText').textContent = d.qs[state.q];
@@ -844,7 +864,7 @@ function renderQuestion(){
   });
   const done = state.dim*3 + state.q;
   $('pbarFill').style.width = (done/27*100)+'%';
-  $('plabelLeft').textContent = `Sistema ${state.dim+1}/9 · ${d.name}`;
+  $('plabelLeft').textContent = `Sistema ${state.dim+1}/9 · ${d.short}`;
   $('plabelRight').textContent = `${done}/27 respondidas`;
   $('backBtn').style.visibility = (state.dim===0 && state.q===0) ? 'hidden':'visible';
   const qc=$('qcard'); qc.style.animation='none'; void qc.offsetWidth; qc.style.animation='';
@@ -864,7 +884,7 @@ $('backBtn').onclick = ()=>{
 function showSectionResult(){
   const i=state.dim, d=DIMS[i], s=secScore(i), tier=TIER(s);
   $('tierBadge').textContent = TIER_LABEL[tier];
-  $('resDimKicker').textContent = `Sistema ${i+1} · ${d.name}`;
+  $('resDimKicker').textContent = `${d.name} · ${d.tech}`;
   $('resFort').textContent = d.tiers[tier].f;
   $('resInv').textContent = d.tiers[tier].i;
   $('ringScore').textContent = s;
@@ -874,7 +894,7 @@ function showSectionResult(){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     ring.style.strokeDashoffset = C*(1 - s/15);
   }));
-  $('nextSecBtn').textContent = (i===DIMS.length-1) ? 'Ver mi Coherencia Integral ✦' : `Continuar con el sistema ${DIMS[i+1].name} ✦`;
+  $('nextSecBtn').textContent = (i===DIMS.length-1) ? 'Ver mi Coherencia Integral ✦' : `Continuar con ${DIMS[i+1].name} ✦`;
   paintConstellation();
   show('screen-secres');
 }
@@ -912,7 +932,7 @@ function showFinal(){
   }));
   // bars
   $('finalBars').innerHTML = DIMS.map((d,i)=>
-   `<div class="bar-row"><span class="bl">${d.name}</span>
+   `<div class="bar-row"><span class="bl">${d.short}</span>
      <span class="bt"><i data-w="${secScore(i)/15*100}"></i></span>
      <span class="bv">${secScore(i)}/15</span></div>`).join('');
   setTimeout(()=>{document.querySelectorAll('.bar-row .bt i').forEach(el=>el.style.width=el.dataset.w+'%');},80);
@@ -920,8 +940,8 @@ function showFinal(){
   const scores = DIMS.map((d,i)=>({d,i,s:secScore(i)}));
   const hi = [...scores].sort((a,b)=>b.s-a.s)[0];
   const lo = [...scores].sort((a,b)=>a.s-b.s)[0];
-  $('hiText').textContent = `Sistema ${hi.d.name} (${hi.s}/15). ${hi.d.tiers[TIER(hi.s)].f}`;
-  $('loText').textContent = `Sistema ${lo.d.name} (${lo.s}/15). ${lo.d.tiers[TIER(lo.s)].i}`;
+  $('hiText').textContent = `${hi.d.name} (${hi.s}/15). ${hi.d.tiers[TIER(hi.s)].f}`;
+  $('loText').textContent = `${lo.d.name} (${lo.s}/15). ${lo.d.tiers[TIER(lo.s)].i}`;
   drawRadar();
   show('screen-final');
 }
@@ -969,7 +989,7 @@ function drawRadar(){
     ctx.fillStyle='#f3d98b'; ctx.fill();
     const lx=cx+Math.cos(a)*(R+48), ly=cy+Math.sin(a)*(R+34);
     ctx.fillStyle='rgba(246,239,225,.75)';
-    ctx.fillText(DIMS[i].name.toUpperCase(), lx, ly);
+    ctx.fillText(DIMS[i].short.toUpperCase(), lx, ly);
   }
 }
 
@@ -1052,8 +1072,11 @@ function drawSectionCard(i){
   cardBase(ctx,W,H); cardHeaderFooter(ctx,W,H);
   ctx.textAlign='center';
   ctx.fillStyle='#d8b264'; ctx.font='500 32px Poppins, sans-serif';
-  ctx.fillText('SISTEMA '+(i+1)+' DE 9',W/2,380);
-  ctx.fillStyle='#f3d98b'; ctx.font='700 100px "Playfair Display", serif';
+  ctx.fillText('SISTEMA '+(i+1)+' DE 9 · '+d.tech.toUpperCase(),W/2,380);
+  let fs=100;
+  do{ ctx.font='700 '+fs+'px "Playfair Display", serif'; fs-=4; }
+  while(ctx.measureText(d.name.toUpperCase()).width > W-200 && fs>40);
+  ctx.fillStyle='#f3d98b';
   ctx.fillText(d.name.toUpperCase(),W/2,490);
   const badge=TIER_LABEL[tier];
   ctx.font='600 32px Poppins, sans-serif';
@@ -1080,7 +1103,7 @@ function drawSectionCard(i){
     ctx.font='500 italic 34px "Playfair Display", serif';
     ctx.fillText('El recorrido de '+state.name,W/2,Math.min(yEnd2+50,H-250));
   }
-  downloadCanvas('EmpoderateConDeyssi_Sistema_'+d.name+'.png');
+  downloadCanvas('EmpoderateConDeyssi_'+d.name.replace(/ /g,'_')+'.png');
 }
 function drawMasterCard(){
   const cv=$('cardCanvas'), ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
@@ -1099,7 +1122,7 @@ function drawMasterCard(){
   DIMS.forEach((d,i)=>{
     const y=y0+i*lh, s=secScore(i);
     ctx.textAlign='right'; ctx.fillStyle='rgba(246,239,225,.75)';
-    ctx.fillText(d.name.toUpperCase(), bx-20, y+9);
+    ctx.fillText(d.short.toUpperCase(), bx-20, y+9);
     ctx.fillStyle='rgba(216,178,100,.16)';
     roundRect(ctx,bx,y-8,bw,20,10); ctx.fill();
     const g=ctx.createLinearGradient(bx,0,bx+bw,0);
